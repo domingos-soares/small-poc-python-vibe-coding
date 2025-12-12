@@ -4,6 +4,8 @@ A FastAPI-based REST service for managing cars with full CRUD operations.
 
 ## Features
 
+- **GET /** - Root endpoint with API info
+- **GET /health** - Health check endpoint for monitoring
 - **GET /cars** - List all cars
 - **GET /cars/{id}** - Get a specific car by ID
 - **POST /cars** - Create a new car
@@ -44,7 +46,37 @@ Each car has the following properties:
 - `color` (string): Car color (1-30 characters)
 - `price` (float): Car price in USD (must be positive)
 - `created_at` (datetime): Creation timestamp (auto-generated)
-- `updated_at` (datetime): Last update timestamp (auto-updated)
+- `updated_at` (datetime): Last update timestamp (auto-generated)
+
+## Recent Refactoring
+
+The codebase has been refactored with the following improvements:
+
+### Code Structure
+- **Service Layer**: Introduced `CarService` class to encapsulate business logic
+- **Better Organization**: Separated concerns between models, routes, and services
+- **Configuration Management**: Centralized configuration constants
+
+### Pydantic Updates
+- **Fixed Deprecation**: Updated from `class Config` to `model_config = ConfigDict`
+- **Modern Syntax**: Using `model_dump()` instead of deprecated `dict()` method
+- **Type Safety**: Enhanced type hints throughout the codebase
+
+### Error Handling
+- **Improved Exception Handling**: Better error messages and status codes
+- **Validation**: Enhanced input validation with proper error responses
+- **Service Layer Errors**: Proper error propagation from service to API layer
+
+### Health Monitoring
+- **Health Check Endpoint**: Added `/health` endpoint for monitoring and load balancers
+- **Service Status**: Returns service information and timestamp
+
+### Alternative Structure
+The `app/` directory contains a modular version with:
+- `app/models/` - Pydantic models
+- `app/routes/` - API route handlers  
+- `app/services/` - Business logic services
+- `app/core/` - Configuration and utilities
 
 ## API Endpoints
 
