@@ -56,6 +56,16 @@ def get_current_timestamp() -> datetime:
 async def root():
     return {"message": "Cars REST API", "version": "1.0.0"}
 
+@app.get("/health", tags=["Health"])
+async def health_check():
+    """Health check endpoint for monitoring and load balancers"""
+    return {
+        "status": "healthy",
+        "timestamp": get_current_timestamp().isoformat(),
+        "service": "Cars REST API",
+        "version": "1.0.0"
+    }
+
 @app.get("/cars", response_model=List[Car], tags=["Cars"])
 async def get_cars():
     """Get all cars"""
